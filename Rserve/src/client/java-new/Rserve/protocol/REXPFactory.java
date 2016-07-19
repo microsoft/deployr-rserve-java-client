@@ -618,8 +618,12 @@ public class REXPFactory {
 					buf[io++] = 0;
 					i++;
 				}
-				i = io - off;
-				while ((i & 3) != 0) { buf[io++] = 1; i++; } // padding if necessary..
+// Below code caused the empty string bug
+//				i = io - off;
+//				while ((i & 3) != 0) { buf[io++] = 1; i++; } // padding if necessary..
+// Fix is to Pad buffer from current position till the end
+                i = io;
+                while (i < buf.length) { buf[io++] = 1; i++; }
 				break;
 			}
 			case XT_LIST_TAG:
